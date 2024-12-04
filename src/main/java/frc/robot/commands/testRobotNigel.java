@@ -38,27 +38,26 @@ public testRobotNigel setDefaultCommand;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /*  if (controller.getAButton()) {
-       motor.function(controller.getRawAxis(5));
-     }
-     else {
-       motor.function(0);
-     }
-     if (timer.hasElapsed(4)) {
-       motor.function(0.2); 
-     }
-     else{
-       motor.function(0);
-     }
-     System.out.println(timer.get());
-     if (timer.hasElapsed(5)) {
-       timer.restart();
-     }
+    // if (controller.getAButton()) {
+    //   motor.function(controller.getRawAxis(5));
+    // }
+    // else {
+    //   motor.function(0);
+    // }
+    // if (timer.hasElapsed(4)) {
+    //   motor.function(0.2); 
+    // }
+    // else{
+    //   motor.function(0);
+    // }
+    // System.out.println(timer.get());
+    // if (timer.hasElapsed(5)) {
+    //   timer.restart();
+    // }
     double speed=SmartDashboard.getNumber("Speed", 0);
   motor.setMotorSpeed(speed);
-  */
   }
- 
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

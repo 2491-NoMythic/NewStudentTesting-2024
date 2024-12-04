@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.driveTrainController;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.testRobotNigel;
+import frc.robot.subsystems.DriveTrainTest;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.driveTrainTest;
 import frc.robot.subsystems.testNigelRobo;
 
 /**
@@ -40,8 +41,9 @@ public class RobotContainer {
   private testRobotNigel myCommand;
   private XboxController controller;
   private int motorTurns = 2;
-  private driveTrainTest driveTest;
-  private driveTrainController driveContoller;
+  private DriveTrainTest driveTrainTest;
+  private DriveCommand driveCommand;
+
   public RobotContainer() {
     controller = new XboxController(0);
   motorInst();
@@ -49,15 +51,18 @@ public class RobotContainer {
    configureBindings();
    SmartDashboard.putNumber("Motor Turns",motorTurns);
    SmartDashboard.putNumber("Speed", 0);
+
+   
   }
   
   private void motorInst(){
-   motorSubSys = new testNigelRobo();
-  myCommand = new testRobotNigel(motorSubSys, controller);
-   motorSubSys.setDefaultCommand(myCommand);
-  driveTest = new driveTrainTest();
-  driveContoller = new driveTrainController(driveTest, controller);
-  driveTest.setDefaultCommand(driveContoller);
+    driveTrainTest = new DriveTrainTest();
+    driveCommand = new DriveCommand(driveTrainTest, controller);
+    driveTrainTest.setDefaultCommand(driveCommand);
+
+    motorSubSys = new testNigelRobo();
+    myCommand = new testRobotNigel(motorSubSys, controller);
+    motorSubSys.setDefaultCommand(myCommand);
   }
   private void autoInst(){
 
@@ -73,8 +78,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    //new Trigger(m_exampleSubsystem::exampleCondition)
-     //   .onTrue(new driveTrainController(m_exampleSubsystem));
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
